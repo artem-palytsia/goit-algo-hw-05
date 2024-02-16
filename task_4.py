@@ -22,11 +22,15 @@ def add_contact(args, contacts):
 @input_error
 def change_contact(args, contacts):
     name, phone = args
-    contacts[name] = phone
-    return "Contact updated."
+    if name in contacts.keys():
+        contacts[name] = phone
+        return "Contact updated."
 
-def show_phone(args):
-    pass
+def show_phone(args, contacts):
+    name = ''.join(args)
+    if name in contacts.keys():
+        return f"Phone: {contacts[name]}"
+    return "No such contact in dictionary"
 
 def show_all(contacts):
     return contacts
@@ -49,7 +53,7 @@ def main():
         elif command == "change":
             print(change_contact(args, contacts))
         elif command == "phone":
-            print(show_phone(contacts))
+            print(show_phone(args, contacts))
         elif command == "all":
             print(show_all(contacts))
         else:
